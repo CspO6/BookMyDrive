@@ -17,15 +17,15 @@
 <h2>Tecnologías Utilizadas</h2>
 
 <ul>
-  <li><strong>Java:</strong> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" /></li>
+  <li><strong>Java:</strong> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" width="20" height="20" /></li>
   
-  <li><strong>Spring Boot:</strong> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring Boot" /></li>
+  <li><strong>Spring Boot:</strong> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring Boot" width="20" height="20" /></li>
   
-  <li><strong>HTML:</strong> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" /></li>
+  <li><strong>HTML:</strong> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" width="20" height="20" /></li>
   
-  <li><strong>CSS:</strong> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" /></li>
+  <li><strong>CSS:</strong> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" width="20" height="20" /></li>
   
-  <li><strong>JavaScript:</strong> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" /></li>
+  <li><strong>JavaScript:</strong> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" width="20" height="20" /></li>
   
-  <li><strong>Thymeleaf:</strong> <img src="https://www.thymeleaf.org/doc/images/thymeleaf.png" alt="Thymeleaf" /></li>
+  <li><strong>Thymeleaf:</strong> <img src="https://www.thymeleaf.org/doc/images/thymeleaf.png" alt="Thymeleaf" width="20" height="20" /></li>
 </ul>
