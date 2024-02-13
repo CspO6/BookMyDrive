@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout2 :: head">
+
+</head>
+
+<body>
+	<script src="https://www.paypal.com/sdk/js?client-id=AXfF6G_0CeXMq-WDLrXu2KxHNbxucKcNHKfY6-tAyJ1W9H0adlSONwT7MwXOLXm8bJiQQ-fcdlKkgZ_C&currency=USD"></script>
+	<link rel="stylesheet" th:href="@{/css/pasajero/listarseleccion.css}" />
+	<link rel="stylesheet" th:href="@{/Administrador/style2.css}" />
+	<header th:replace="layout/layout2 :: header"></header>
+	<section id="clients" class="clients section-bg">
+			<div class="container">
+
+				<div class="row" data-aos="zoom-in">
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-1.png" class="img-fluid"
+							alt="">
+					</div>
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-2.png" class="img-fluid"
+							alt="">
+					</div>
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-3.png" class="img-fluid"
+							alt="">
+					</div>
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-4.png" class="img-fluid"
+							alt="">
+					</div>
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-5.png" class="img-fluid"
+							alt="">
+					</div>
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-6.png" class="img-fluid"
+							alt="">
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+	<div th:each="dato: ${datos}">
+    <!-- Incluir un input oculto con el valor de dato[6] -->
+    <input type="hidden" id="cronoValue" th:value="${dato[6]}"/>
+	</div>
+<script th:inline="javascript">
+	var costo = /*[[${costo4}]]*/ 0; 
+	
+	var crono = document.getElementById('cronoValue').value;
+	
+	
+    paypal.Buttons({
+    createOrder: function(data, actions) {
+        return actions.order.create({
+            // ...
+            purchase_units: [{
+                amount: {
+                    value: costo
+                }
+            }],
+        });
+    },
+    onApprove: function(data, actions) {
+         var asientosSeleccionados = obtenerAsientosSeleccionados2();
+
+            // Redirigir a la URL del controlador con los parámetros necesarios
+            window.location.href = '/asientos/guardarReserva2/' + crono + '/' + costo + '?idsAsientosSeleccionados=' + encodeURIComponent(asientosSeleccionados);
+    }
+}).render('#paypal-button-container'); 
+
+ function obtenerAsientosSeleccionados2() {
+        var asientosSeleccionados = [];
+        var filasAsientos = document.querySelectorAll("tbody tr");
+
+        filasAsientos.forEach(function(fila) {
+            var idAsiento = fila.getAttribute("data-id");
+            asientosSeleccionados.push(idAsiento);
+        });
+
+        // Asignar los IDs de los asientos al campo oculto
+        document.getElementById("idsAsientosSeleccionados2").value = asientosSeleccionados.join(',');
+
+        return asientosSeleccionados.join(',');
+    }
+    </script>
+    <input type="hidden" id="idsAsientosSeleccionados2" name="idsAsientosSeleccionados2" />
+	<section id="services" class="services section-bg">
+			
+			<div class="container" data-aos="fade-up">
+	
+    <div class="uni">
+						
+	<div class="section-title">
+	
+					<h2>Confirma la selección</h2>
+					<small style="font-weight: bold;">Verifa tu información para continuar:</small>
+					
+				</div>
+    </div>
+			</section>
+	<div class="m-3"></div>
+	<div class="container py-4">
+		<div id="seleccion" class="card bg-light">
+			<div id="ast" class="card-header"> Asientos seleccionados:</div>
+			<div id="tar" class="card-body d-flex justify-content-between align-items-center">
+
+				<div class="vista">
+					<p>Usted ha seleccionado el/los siguientes asientos:</p>
+					<table class="table table-dark table-hover">
+						<thead class="thead-inverse">
+							<tr>
+								<th class="bg-dark text-white">F I L A</th>
+								<th class="bg-dark text-white">C O L U M N A</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="asiento: ${asientos}" th:data-id="${asiento.id}">
+								<td th:text="${asiento.fila}"></td>
+								<td th:text="${asiento.columna}"></td>
+							</tr>
+						</tbody>
+					</table>
+					<span>Cada número y fila se encuentran anotados en la unidad seleccionada, favor de prestar
+						atención si son los asientos a reservar.</span>
+				</div>
+
+				<img th:src="@{/images/pasajero/img6r.png}" width="500px" height="200px">
+
+			</div>
+		</div>
+	</div>
+
+	<div class="infor">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="card" style="max-width: 450px; max-height: 520px; overflow: auto;">
+					<div class="card-body">
+						<h5 class="card-title">COSTO:</h5>
+						<div class="is">Precio Unitario: <p th:text="'$'+${costo2}"></p>
+						</div>
+						<div class="is">Subtotal (sin iva): <p th:text="'$'+${costo}"></p>
+						</div>
+						<div class="is">Cantidad asientos: <p th:text="${cantidad}"></p>
+						</div>
+						<center><div class="is2">
+							
+    <div class="column">
+		
+        Total: <p th:text="'$'+${costo3}"></p>
+        <br>
+        <button type="button" class="btn btn-info btn-sm" title="Este valor se cancelará si no cumple con los requisitos de descuento">
+            <i class="bi bi-info-circle"></i>
+        </button>
+    </div>
+    <div class="column" title="Haga clic para obtener más información sobre el Total Si Aplica Descuento">
+        
+        Total Si Aplica Descuento: <p th:text="'$'+${costo4}"></p>
+        <button type="button" class="btn btn-info btn-sm" title="Se aplica descuento si se paga en línea o pertenezca al grupo de: tercera edad o discapacidad, para aplicar este descuento debe acercarse a ventanilla con su cedula de identidad/documentos y la secretaria aplicara este valor de descuento una hora antes">
+            <i class="bi bi-info-circle"></i>
+        </button>
+    </div>
+</div>
+</center>
+						
+					</div>
+					
+					<img th:src="@{/images/pasajero/img8.png}" width="100px" height="100px">
+					<br>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="card" style="max-width: 450px;">
+					<div class="card-body">
+						<h5 class="card-title">MÉTODO DE PAGO:</h5>
+						
+
+						<h5 class="card-title">* RESERVA EN EFECTIVO:</h5>
+							<div th:each="dato: ${datos}">
+							<form id="formReserva" th:action="@{'/asientos/guardarReserva/' + ${dato[6]}+'/'+${costo3}}"
+								method="post">
+								<center>
+						<div class="form-check">
+    <input class="form-check-input" type="checkbox" id="metodoPagoCheck" name="metodoPagoCheck">
+    <label class="form-check-label" for="metodoPagoCheck">
+        Pago con descuento
+    </label>
+</div>
+</center>
+								<input type="hidden" id="idsAsientosSeleccionados" name="idsAsientosSeleccionados" />
+								<div class="d-grid gap-2">
+								<button type="submit" class="btn btn-primary" onclick="guardarAsientos()">
+									Reserva en efectivo
+								</button>
+								</div>
+								<p class="isa">Al reservar en efectivo debe cancelar el valor total en ventanilla una
+									hora antes ,
+									caso contrario se aplicará una multa.</p>
+							</form>
+						</div>
+						<h5 class="card-title"> *RESERVA EN LÍNEA:</h5>
+<div id="paypal-button-container"></div>
+						
+			
+						
+						<img th:src="@{/images/pasajero/img7.png}" width="150px" height="110px">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<div class="m-3"></div>
+	<div class="m-3"></div>
+	<center>
+		<div th:each="dato: ${datos}">
+			<form th:action="@{'/asientos/cancelarReserva/' + ${dato[6]}}" method="post">
+
+				<button type="submit" class="btn btn-danger">
+					Cancelar reserva
+				</button>
+			</form>
+		</div>
+	</center>
+
+<div class="m-3"></div>
+	<footer th:replace="layout/layout2 :: footer"></footer>
+	<script th:src="@{/js/pasajero/listarseleccion.js}"></script>
+	
+</body>
+
+</html>

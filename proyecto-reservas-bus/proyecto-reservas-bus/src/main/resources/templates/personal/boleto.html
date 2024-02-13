@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout3 :: head">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+</head>
+<style>
+  #generarInforme:hover {
+    background-color: #1a2b40 !important;
+    color: #fff !important;
+  }
+</style>
+<body>
+
+	<div class="m-3"></div>
+
+	
+
+		<header th:replace="layout/layout3 :: header"></header>
+		<link rel="stylesheet" th:href="@{/Administrador/style3.css}" />
+		<section id="clients" class="clients section-bg">
+			<div class="container">
+
+				<div class="row" data-aos="zoom-in">
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-1.png" class="img-fluid"
+							alt="">
+					</div>
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-2.png" class="img-fluid"
+							alt="">
+					</div>
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-3.png" class="img-fluid"
+							alt="">
+					</div>
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-4.png" class="img-fluid"
+							alt="">
+					</div>
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-5.png" class="img-fluid"
+							alt="">
+					</div>
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-6.png" class="img-fluid"
+							alt="">
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+		<section id="services" class="services section-bg">
+
+			<div class="container" data-aos="fade-up">
+
+				<div class="uni">
+					<div class="section-title">
+						<h2>Informes</h2>
+
+						<small>Aqui se presenta los informes de las unidades y
+							boletos vendidos</small>
+					</div>
+				</div>
+		</section>
+		
+		<section id="viajes" class="about">
+			<div class="container" data-aos="fade-up">
+
+				
+				
+						
+		<!-- personal/boleto.html -->
+<div class="input-group">
+    <form action="/personal/boleto" method="get">
+        <input placeholder="Seleccionar fecha" type="date" name="fecha" id="fecha" class="form-control" min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" required>
+
+        <input type="text" name="unidadId" placeholder="Ingrese la unidadId" required>
+        <button class="btn btn-primary" type="submit">Buscar</button>
+    </form>
+</div>
+
+					</div>
+				</div>
+
+			</div>
+		</section>
+		
+		
+		
+<section>
+		<div class="container py-0">
+			<div class="card bg-light">
+				<div class="card-header" th:text="${titulo}"></div>
+				
+				<div id="informeContainer" class="card-body">
+
+
+					<div id="miTablaContainer" class="table-responsive">
+						<table class="table table-striped table-bordered" id="miTabla">
+							<thead class="thead-inverse">
+								<tr>
+									<th class="bg-dark text-white">CLIENTE</th>
+									<th class="bg-dark text-white">FECHA VIAJE</th>
+									<th class="bg-dark text-white">HORA SALIDA</th>
+									<th class="bg-dark text-white">ASIENTO</th>
+									<th class="bg-dark text-white">METODO PAGO</th>
+									<th class="bg-dark text-white">UNIDAD</th>
+									<th class="bg-dark text-white">RUTA</th>
+									<th class="bg-dark text-white">TOTAL PAGADO</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="boleto: ${boletos}">
+									<td th:text="${boleto.usuario.email}"></td>
+									<td th:text="${boleto.cronograma.fecha.dayOfMonth}+'/'+${boleto.cronograma.fecha.monthValue}+'/'+${boleto.cronograma.fecha.year}"></td>
+									<td th:text="${boleto.cronograma.horaSalida}"></td>
+									<td
+										th:text="${boleto.asiento.fila}+ ' - ' + ${boleto.asiento.columna}"></td>
+									<td th:text="${boleto.metodoPago}"></td>
+									<td
+										th:text="${boleto.asiento.unidad.cooperativa.nombre}+ ' ' +${boleto.asiento.unidad.numero}"></td>
+									<td
+										th:text="${boleto.cronograma.ruta.rutaOrigen}+ ' - ' + ${boleto.cronograma.ruta.rutaDestino}"></td>
+									<td th:text="${boleto.totalPagoFormateado}"></td>
+								</tr>
+							</tbody>
+						</table>
+					<a href="#" class="btn btn-secondary" id="generarInforme" onclick="descargarInforme()" 
+   style="background-color: #37517e; color: #fff; transition: background-color 0.3s ease;">
+   Generar Informe
+</a>
+
+					</div>
+				</div>
+			</div>
+			</div>
+</section>
+
+
+		
+			<script>
+				function descargarInforme() {
+					
+				
+    
+					// Obtener el contenido del contenedor
+					var informeContainer = document
+							.getElementById("informeContainer");
+
+					var botonGenerarInforme = document
+							.getElementById("generarInforme");
+					if (botonGenerarInforme) {
+						botonGenerarInforme.parentNode
+								.removeChild(botonGenerarInforme);
+					}
+					// Agregar estilos al informe
+					informeContainer.style.fontFamily = "Arial, sans-serif";
+					informeContainer.style.backgroundColor = "#fff";
+					informeContainer.style.padding = "20px";
+					informeContainer.style.border = "1px solid #212529";
+
+					// Agregar la imagen al informe en la parte superior izquierda
+					var logoImg = document.createElement("img");
+					logoImg.src = window.location.origin + "/images/logo.png"; // Ruta completa
+					logoImg.alt = "Descripción de la imagen";
+					logoImg.width = 150;
+					logoImg.height = 25;
+					logoImg.className = "mt-2";
+
+					// Insertar la imagen al inicio del contenedor
+					informeContainer.insertBefore(logoImg,
+							informeContainer.firstChild);
+
+					// Mostrar la fecha, día y hora en la parte superior derecha
+					var fechaHoraDiv = document.createElement("div");
+					fechaHoraDiv.style.position = "absolute";
+					fechaHoraDiv.style.top = "0";
+					fechaHoraDiv.style.right = "0";
+					fechaHoraDiv.style.padding = "10px";
+					fechaHoraDiv.style.backgroundColor = "#37517e";
+					fechaHoraDiv.style.color = "#fff";
+
+					var fechaHora = obtenerFechaHoraActual();
+					fechaHoraDiv.textContent = fechaHora;
+
+					informeContainer.appendChild(fechaHoraDiv);
+
+					// Agregar la firma del administrador en la parte inferior izquierda
+					var firmaDiv = document.createElement("div");
+					firmaDiv.style.position = "absolute";
+					firmaDiv.style.bottom = "0";
+					firmaDiv.style.left = "0";
+					firmaDiv.style.padding = "10px";
+					firmaDiv.style.backgroundColor = "#f8f9fa";
+					firmaDiv.textContent = "Firma Administrador: ";
+
+					informeContainer.appendChild(firmaDiv);
+
+					var tabla = informeContainer.querySelector("table");
+					tabla.style.width = "100%";
+					tabla.style.borderCollapse = "collapse";
+					tabla.style.marginTop = "20px";
+					tabla.style.backgroundColor = "#fff"; // Fondo blanco para toda la tabla
+					tabla.style.color = "#000"; // Texto negro para toda la tabla
+					tabla.style.border = "2px solid #000"; // Bordes negros para toda la tabla
+
+					// Aplicar estilos específicos para las celdas de encabezado
+					var titulos = tabla.querySelectorAll("th");
+					titulos.forEach(function(titulo) {
+						titulo.style.backgroundColor = "#37517e"; // Color de fondo azul para títulos
+						titulo.style.color = "#fff"; // Texto blanco para títulos
+						titulo.style.border = "1px solid #000"; // Bordes negros para títulos
+						titulo.style.textAlign = "center"; // Texto centrado para títulos
+						titulo.style.padding = "15px 10px"; // Agregar espacio interno a los títulos (ajustar según sea necesario)
+					});
+
+					// Aplicar estilos generales para celdas de datos
+					var celdas = tabla.querySelectorAll("td");
+					celdas.forEach(function(celda) {
+						celda.style.border = "1px solid #000"; // Bordes negros para celdas de datos
+						celda.style.textAlign = "center"; // Texto centrado para celdas de datos
+						 celda.style.padding = "15px 10px"; // Agregar espacio interno a las celdas (ajustar según sea necesario)
+					});
+
+					// Agregar el número de página
+					var numeroPaginaDiv = document.createElement("div");
+					numeroPaginaDiv.style.position = "absolute";
+					numeroPaginaDiv.style.bottom = "0";
+					numeroPaginaDiv.style.right = "0";
+					numeroPaginaDiv.style.padding = "10px";
+					numeroPaginaDiv.style.backgroundColor = "#f8f9fa";
+					numeroPaginaDiv.textContent = "Página 1"; // Actualiza el número de página según sea necesario
+
+					informeContainer.appendChild(numeroPaginaDiv);
+
+					// Crear un archivo Blob con el contenido HTML
+					var blob = new Blob([ informeContainer.outerHTML ], {
+						type : "text/html"
+					});
+
+					// Crear un enlace para descargar el archivo
+					var a = document.createElement("a");
+					a.href = window.URL.createObjectURL(blob);
+					a.download = "Informe.html";
+
+					// Agregar el enlace al documento y simular clic para iniciar la descarga
+					document.body.appendChild(a);
+					a.click();
+
+					// Limpiar el enlace y el contenido del contenedor (opcional)
+					document.body.removeChild(a);
+					informeContainer.innerHTML = "¡Informe descargado!";
+
+					// Crear un salto de línea
+					var saltoLinea = document.createElement("br");
+					informeContainer.appendChild(saltoLinea);
+
+					// Crear el botón de regreso
+					var botonRegresar = document.createElement("button");
+					botonRegresar.innerHTML = "Regresar a Informes";
+					botonRegresar.className = "btn btn-primary"; // Agregar la clase de estilo
+					botonRegresar.style.backgroundColor = "#37517e"; // Color de fondo del botón
+					botonRegresar.style.color = "#fff"; // Color del texto del botón
+					botonRegresar.style.marginTop = "10px"; // Espaciado superior
+					botonRegresar.style.transition = "background-color 0.3s ease"; // Agregar la transición para el hover
+
+					// Agregar el botón al contenedor
+					informeContainer.appendChild(botonRegresar);
+
+					// Agregar el evento click para redirigir a la anterior vista
+					botonRegresar.addEventListener("click", function() {
+					    // Aquí puedes agregar la lógica para redirigir a la anterior vista
+					    // window.location.href = "url de la anterior vista";
+					});
+					botonRegresar.addEventListener("click", function() {
+					    // Aquí puedes agregar la lógica para redirigir a la anterior vista
+					    window.location.href = "/personal/boleto";
+					});
+
+					// Agregar el efecto hover al botón
+					botonRegresar.addEventListener("mouseover", function() {
+					    botonRegresar.style.backgroundColor = "#1a2b40";
+					});
+
+					botonRegresar.addEventListener("mouseout", function() {
+					    botonRegresar.style.backgroundColor = "#37517e";
+					});
+				}
+
+				function obtenerFechaHoraActual() {
+					var fechaHora = new Date();
+					var options = {
+						weekday : 'long',
+						year : 'numeric',
+						month : 'long',
+						day : 'numeric',
+						hour : 'numeric',
+						minute : 'numeric',
+						second : 'numeric',
+						timeZoneName : 'short'
+					};
+					return fechaHora.toLocaleDateString('es-ES', options);
+				}
+			</script>
+			<script th:src="@{/js/personal/home.js}"></script>
+			<footer th:replace="layout/layout3 :: footer"></footer>
+</body>
+
+</html>
