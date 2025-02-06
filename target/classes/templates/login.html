@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookMyDrive</title>
+
+    <!-- Link CSS -->
+   <!-- Link Bootstrap CSS -->
+<link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<!-- Link CSS -->
+<link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- Botpress Webchat Scripts -->
+<!-- Link Bootstrap Icons -->
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css}" integrity="sha512-ZnR2wlLbSbr8/c9AgLg3jQPAattCUImNsae6NHYnS9KrIwRdcY9DxFotXhNAKIKbAXlRnujIqUWoXXwqyFOeIQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Link Bootstrap CSS -->
+<link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<!-- Link CSS -->
+<link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://kit.fontawesome.com/827cd1c55c.js" crossorigin="anonymous"></script>
+<style>
+    .password-toggle {
+        position: relative;
+    }
+
+    .toggle-icon {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+ .icon-input {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .icon-input i {
+        position: absolute;
+        left: 10px; /* Ajusta la posición según sea necesario */
+    }
+
+    .icon-input input {
+        padding-left: 30px; /* Ajusta el espacio para el icono */
+    }
+
+
+</style>
+</head>
+<body>
+    <div class="navbar">
+        <a th:href="@{/}">
+            <img th:src="@{/images/logo.png}" alt="no disponible" width="150" height="auto" />
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="box">
+            <div class="form sign_in">
+				<br>
+                <h3>Inicio de sesión</h3>
+                <br> 
+                
+                <div th:if="${param.logout}">
+                    <div class="alert alert-info">Ha cerrado sesión exitosamente</div>
+                </div>
+                    
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">Usuario o Contraseña Invalido</div>
+                </div>
+                    
+                <div th:if="${param.error2}">
+                    <div class="alert alert-danger">Por favor, confirma tu correo electrónico para iniciar sesión.</div>
+                </div>
+
+                <span class="o">Usa tus credenciales en la aplicación:</span> <br> <br>
+
+                <form th:action="@{/login}" method="post" class="form_input">
+<div class="type icon-input">
+    <i class="bi bi-envelope-fill icon"></i>
+    <input class="input-group__input" type="text" placeholder="Correo electrónico" name="username" id="username">
+</div> <br>
+                  <div class="type password-toggle">
+
+    <div class="password-toggle">
+        <input class="input-group__input" type="password" placeholder="Contraseña" name="password" id="passwordSignIn" onkeyup="checkPassword(this.value)" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_!@#$%^&*])[A-Za-z\d_!@#$%^&*]{8,}" />
+        <i class="toggle-icon fas fa-eye" onclick="togglePasswordVisibility('passwordSignIn')"></i>
+        <i class="toggle-icon fas fa-eye-slash" style="display:none;" onclick="togglePasswordVisibility('passwordSignIn')"></i>
+    </div>
+</div>
+                    <div>
+                        <a class="g" th:href="@{/forgot_password}">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    
+                    <br> 
+
+                    <button class="btn bkg" type="submit">Ingresar</button>
+                </form>
+            </div>
+    <div id="loading" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px;">
+    <p>Enviando correo, por favor espera...</p>
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Cargando...</span>
+    </div>
+</div>
+            <div class="form sign_up">
+                <h3>Registro</h3>              
+                <form th:action="@{/registro}" method="post" class="form_input" onsubmit="showLoading()">
+                    <div class="type icon-input">
+    <i class="bi bi-person-fill icon"></i>
+    <input class="input-group__input" type="text" placeholder="Nombre" name="nombre" id="name" required>
+</div> <br>
+
+<div class="type icon-input">
+    <i class="bi bi-person-fill icon"></i>
+    <input class="input-group__input" type="text" placeholder="Apellido" name="apellido" id="apellido" required>
+</div> <br>
+
+<div class="type icon-input">
+    <i class="bi bi-envelope-fill icon"></i>
+    <input class="input-group__input" type="email" placeholder="Correo Electrónico" name="email" id="email">
+</div> <br>
+                    
+                    
+<div class="type">
+    <div class="password-toggle">
+        <input class="input-group__input" type="password" placeholder="Contraseña" name="password" id="passwordSignUp" onkeyup="checkPassword(this.value)" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_!@#$%^&*])[A-Za-z\d_!@#$%^&*]{8,}" />
+        <i class="toggle-icon fas fa-eye" id="eyeIconOpen" onclick="togglePasswordVisibility('passwordSignUp')"></i>
+        <i class="toggle-icon fas fa-eye-slash" id="eyeIconClose" style="display:none;" onclick="togglePasswordVisibility('passwordSignUp')"></i>
+    </div>
+    
+    <div class="validation">
+        <ul>
+            <li id="lower">Al menos un carácter en minúscula</li>
+            <li id="upper">Al menos un carácter en mayúscula</li>
+            <li id="number">Al menos un numero</li>
+            <li id="special">Al menos un carácter especial</li>
+            <li id="length">Al menos 8 caracteres</li>
+        </ul>
+    </div>
+</div> <br>
+
+
+<div id="loadingContainer" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px;">
+    <p>Enviando correo, por favor espera...</p>
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Cargando...</span>
+    </div>
+</div>
+
+<!-- Luego actualiza el llamado a la función showLoading -->
+
+                   <button class="btn bkg" type="submit" >Confirmar</button>
+             
+                </form>
+            </div>
+        </div>
+
+        <div class="overlay">
+            <div class="page page_signIn">
+                <h3>¡Bienvenido de vuelta!</h3>
+                <p>¿Aún no estás registrado?</p>
+
+                <button class="btn btnSign-in">Regístrate <i class="bi bi-arrow-right"></i></button>
+            </div>
+
+            <div class="page page_signUp">
+                <h3>¡Hola Amigo!</h3>
+                <p>¿Ya formas parte de nosotros?</p>
+
+                <button class="btn btnSign-up">
+                    <i class="bi bi-arrow-left"></i> Ingreso</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link JavaScript -->
+    <script th:src="@{/js/main.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-wD5mVPRwzJZ2b4tM6nMqN8cmhOUnzKz9UtG0PPF5M6c7e4FLIFdAeMyh0MKYaYq4" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy8RAOpQrgBnb6FU5n5T5STBhN6fHh4u" crossorigin="anonymous"></script>
+    <footer>
+        <p class="m-0 text-center text-white">Copyright &copy; Boletos online</p>
+    </footer>
+<script>
+   function togglePasswordVisibility(passwordInputId) {
+      var passwordInput = document.getElementById(passwordInputId);
+      var eyeIconOpen = document.getElementById('eyeIconOpen');
+      var eyeIconClose = document.getElementById('eyeIconClose');
+
+      if (passwordInput.type === 'password') {
+         passwordInput.type = 'text';
+         eyeIconOpen.style.display = 'none';
+         eyeIconClose.style.display = 'inline';
+      } else {
+         passwordInput.type = 'password';
+         eyeIconOpen.style.display = 'inline';
+         eyeIconClose.style.display = 'none';
+      }
+   }
+</script>
+<script>
+   
+
+    function showLoading() {
+        var loadingDiv = document.getElementById('loadingContainer');
+        loadingDiv.style.display = 'block';
+    }
+
+    function hideLoading() {
+        var loadingDiv = document.getElementById('loadingContainer');
+        loadingDiv.style.display = 'none';
+    }
+</script>
+</body>
+
+
+
+</html>

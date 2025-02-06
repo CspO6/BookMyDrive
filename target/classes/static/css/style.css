@@ -1,0 +1,601 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.container {
+    width: 60%;
+    display: flex;
+    height: 530px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+
+
+@keyframes Show {
+    0%, 49.999% {
+        opacity: 0;
+        z-index: 1;
+    }
+    100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+@keyframes Hidden {
+    0%, 49.999% {
+        opacity: 1;
+        z-index: 5;
+    }
+    100% {
+        opacity: 0;
+        z-index: 1;
+    }
+}
+
+.container .box {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 50%;
+    transition: all 0.8s;
+    transform: translateX(0);
+    background-color: #fff;
+    z-index: 1;
+    overflow: hidden;
+}
+
+
+.container.active .box {
+    transform: translateX(100%);
+}
+
+.container .box .form {
+    position: absolute;
+    height: 100%;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#form_input .forgot a {
+    color: #ffffff !important; /* Agrega !important para asegurar la especificidad */
+    text-decoration: none;
+}
+
+#form_input .forgot a:hover {
+    color: #37517e !important;
+}
+
+
+
+.container .box .form.sign_up {
+    transition: all 1.15s;
+    z-index: 1;
+    opacity: 0;
+  background-color: #343a40; 
+}
+
+.container .box .form.sign_in {
+    opacity: 1;
+    transition: all 1.15s;
+    z-index: 5;
+  background-color: #343a40; 
+}
+
+.container.active .box .form.sign_in {
+    z-index: 1;
+    opacity: 0;
+}
+
+.container.active .box .form.sign_up {
+    z-index: 5;
+    opacity: 1;
+}
+
+
+
+.container .overlay {
+    display: flex;
+    height: 100%;
+    width: 50%;
+    transition: all 0.8s;
+    transform: translateX(0);
+    background-color: #37517e;
+    z-index: 1;
+    overflow: hidden;
+    z-index: 5;
+    opacity: 1;
+}
+
+.container.active .overlay {
+    transform: translateX(-100%);
+}
+
+.container .overlay .page {
+    height: 100%;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: all 0.5s;
+    opacity: 1;
+}
+
+.container.active .overlay .page.page_signIn {
+    opacity: 0;
+    margin-left: -100%;
+}
+
+.container.active .overlay .page.page_signUp {
+    margin-left: 0%;
+}
+
+
+.overlay .page h3 {
+    color: #fff;
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.overlay .page p {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-size: 17px;
+}
+
+.btn {
+    display: inline-block;
+    outline: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 550;
+    background-color: transparent;
+    padding: 10px 20px;
+    border-radius: 22px;
+    border: 1.5px solid #fff;
+    cursor: pointer;
+}
+
+.form h3 {
+    color: #fff;
+    font-size: 40px;
+}
+
+.form span {
+    color: #3a3838;
+}
+
+#form_input .type {
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 10px 0; /* Ajusta el margen */
+}
+
+#form_input .type input {
+    width: calc(100% - 20px);
+    height: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ced4da; /* Color del borde */
+    border-radius: 0.25rem; /* Bordes redondeados */
+    outline: none;
+    background-color: #fff; /* Color de fondo del input */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Efecto de transición */
+}
+
+.btn {
+    font-size: 13px;
+    padding: 10px 35px;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn:hover {
+    color: #fff; /* Color del texto al pasar el mouse */
+    background-color: #4e73df; /* Color de fondo al pasar el mouse */
+    border-color: #4e73df; /* Color del borde al pasar el mouse */
+}
+
+#form_input .type input:focus {
+    border-color: #4e73df; /* Color del borde al tener el foco */
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); /* Sombra al tener el foco */
+}
+
+#form_input .type input::placeholder {
+    color: #A9A8A9;
+}
+
+#form_input .forgot {
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.bkg {
+    background-color: #37517e;
+}
+
+
+input-group__input {
+    font-weight: bold;
+  }
+
+  .input-group__input:focus {
+    outline-offset: 5px;
+  }
+
+  .input-group {
+    position: relative;
+    --x: 20px;
+    --y: 10px;
+    margin-bottom: 15px;
+  }
+
+  .input-group__label,
+  .input-group__input,
+  .submit-btn {
+    font-size: 1.2rem;
+  }
+.input-group__input {
+    width: 100%;
+    height: 100%;
+    padding: 9px;
+    font-size: 16px;
+    border: 1px solid #ced4da; /* Color del borde */
+    border-radius: 0.25rem; /* Bordes redondeados */
+    outline: none;
+    background-color: #fff; /* Color de fondo del input */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Efecto de transición */
+}
+
+.input-group__input:focus {
+    border-color: #4e73df; /* Color del borde al tener el foco */
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); /* Sombra al tener el foco */
+}
+  
+  .input-group_input, .input-group_error {
+    --left: 0;
+    left: var(--left);
+    position: relative;
+  }
+
+ .input-group__input:is(
+      :focus,
+      :not(:placeholder-shown)
+    )
+    ~ .input-group__label {
+    top: calc(var(--y) - 20px);
+    font-size: 0.7rem;
+    border-color: white;
+    color: var(--color-valid);
+  }
+
+  .input-group__label {
+    position: absolute;
+    background-color: white;
+    left: calc(var(--x) - 6px);
+    top: calc(var(--y) - 3px);
+    border: 1px solid transparent;
+    padding: 0 6px;
+    margin: 0;
+    cursor: text;
+    transition: top 300ms, font-size 300ms,
+      border-color 300ms;
+  }
+  .g{
+	  color: #ffffff;
+  }
+  .g:hover {
+    text-decoration: underline; /* O cualquier otro estilo que desees */
+    color: #1e90ff; /* Color al pasar el mouse */
+}
+
+  .input-group__error {
+    color: red;
+    display: block;
+    
+    margin-left: var(--x);
+    margin-top: 1px;
+    font-size: 0.6rem;
+  }
+
+ .input-group__input:not(:focus):invalid {
+    color: red;
+    animation: error-shake 600ms;
+    border: 2px solid var(red);
+  }
+
+  .input-group_input:not(:focus):invalid ~ .input-group_error {
+    visibility: visible;
+    animation: error-shake 600ms;
+  }
+
+  @keyframes error-shake {
+    0% {
+      --left: -10px;
+    }
+    20% {
+      --left: 8px;
+    }
+    40% {
+      --left: -6px;
+    }
+    60% {
+      --left: 4px;
+    }
+    80% {
+      --left: -2px;
+    }
+    100% {
+      --left: 0;
+    }
+  }
+
+  .input-group_input:not(:focus):invalid ~ .input-group_label {
+    color: red;
+    border-color: red;
+    }
+    
+  .navbar {
+    background-color: #ffffff; /* Color de fondo del navbar */
+    padding: 10px; /* Espaciado interno del navbar */
+    text-align: center;
+    position: fixed; /* Fija el navbar en la parte superior */
+    top: 0;
+    height: 70px;
+    width: 100%;
+     z-index: 10; /* Z-index alto para que esté por encima de otros elementos */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agrega una sombra al navbar */
+    display: flex; /* Utiliza flexbox para alinear el contenido */
+    justify-content: space-between; /* Espacio uniforme entre los elementos */
+    align-items: center; /* Centra verticalmente el contenido */
+}
+
+.navbar img{
+	margin-left: 65px;
+}
+
+ 
+ footer {
+    position:fixed;
+    margin-top: 400px;
+    padding-top: 100px;
+    bottom: 0;
+    width: 100%;
+    background-color: #37517e; /* Color de fondo del footer */
+    color: #fff; /* Color del texto del footer */
+    padding: 10px; /* Espaciado interno del footer */
+    text-align: center;
+    z-index: 1000;
+}
+
+ .alert-info {
+   background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+    font-size: 18px;
+    padding: 20px; /* Ajusta el espacio dentro del cuadro */
+    margin-bottom: 20px; /* Ajusta el espacio debajo del cuadro */
+}
+    
+    
+    .alert {
+    margin-bottom: 20px;
+    font-size: 18px;
+    padding: 20px;
+}
+
+    /* Estilo específico para la alerta de logout */
+    .alert-logout {
+     background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+    font-size: 18px;
+    padding: 20px; /* Ajusta el espacio dentro del cuadro */
+    margin-bottom: 20px; /* Ajusta el espacio debajo del cuadro */
+}
+    
+    
+    .perro{
+		color: black;
+	}
+	
+.o {
+    color: white !important;
+    background-color: #37517e;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: -20px; /* Puedes ajustar este valor según tus necesidades */
+}
+      
+      
+
+
+
+/* Estilo para alerta de error */
+.alert-danger {
+   background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+    font-size: 18px;
+    padding: 20px; /* Ajusta el espacio dentro del cuadro */
+    margin-bottom: 20px; /* Ajusta el espacio debajo del cuadro */
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .container .box,
+    .container .overlay {
+        width: 100%;
+    }
+     .alert {
+        font-size: 14px; /* Ajusta el tamaño del texto para pantallas más pequeñas */
+        padding: 15px; /* Ajusta el espacio dentro del cuadro para pantallas más pequeñas */
+    }
+  }
+.container {
+    box-shadow: none; /* Puedes ajustar o eliminar la sombra según sea necesario */
+    margin-top: 50px; /* Reduce el espacio superior */
+    margin-bottom: 50px; /* Reduce el espacio inferior */
+}
+
+.navbar img {
+    margin-left: 15px; /* Reduce el espacio izquierdo del logo */
+}
+
+.footer {
+    margin-top: 20px; /* Reduce el espacio superior del footer */
+}
+#form_input .type {
+    width: 100%;
+}
+
+#form_input .type input {
+    width: calc(100% - 20px);
+}
+
+.form h3 {
+    font-size: 28px; /* Reduce el tamaño del título del formulario */
+}
+
+.btn {
+    font-size: 13px; /* Reduce el tamaño del botón */
+    padding: 10px 35px; /* Ajusta el padding del botón */
+}
+      
+.container .box .form.sign_in .type input,
+.container .box .form.sign_up .type input {
+    width: 100%;
+}
+
+
+
+.boxa {
+  position: relative;
+  background: #ffffff;
+  width: 340px;
+  padding: 20px;
+  border-radius: 20px;
+  border: 5px solid #ececec;
+  box-shadow: 15px 15px 20px rgba(150, 150, 150, 0.1),
+    -15px -15px 20px rgba(150, 150, 150, 0.1),
+    inset 15px 15px 20px rgba(170, 170, 170, 0.25),
+    inset -15px -15px 20px rgba(170, 170, 170, 0.25);
+}
+
+.boxa .inputBox {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  padding: 5px;
+  border-radius: 8px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+}
+
+.boxa .inputBox input {
+  position: relative;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 10px 5px;
+}
+
+.boxa .inputBox #togglePswrd {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.boxa .inputBox #togglePswrd::before {
+  content: "\f06e";
+  font-family: fontAwesome;
+}
+
+.boxa .inputBox #togglePswrd.hide::before {
+  content: "\f070";
+  font-family: fontAwesome;
+}
+
+.validation {
+  text-align: left;
+  background: #376488;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+  color: #fff; /* Set default text color */
+}
+
+.validation ul {
+  list-style-type: none; /* Remove default list styling */
+  padding: 0; /* Remove default padding for the list */
+}
+
+.validation ul li {
+  font-size: 14px;
+  position: relative;
+  display: flex;
+  align-items: center; /* Align items vertically in the list */
+  gap: 8px; /* Add some space between icon and text */
+  transition: 0.5s;
+}
+
+.validation ul li::before {
+  content: "\f192";
+  font-family: fontAwesome;
+  width: 20px;
+  height: 20px; /* Increase height for better alignment with text */
+  display: inline-flex;
+  transition: 0.5s;
+}
+
+.validation ul li.valid {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.validation ul li.valid::before {
+  content: "\f00c";
+  color: #0f0;
+  font-family: fontAwesome;
+  transition: 0.5s;
+}

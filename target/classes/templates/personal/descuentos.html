@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="layout/layout3 :: head">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body>
+	<div class="m-3"></div>
+<header th:replace="layout/layout3 :: header"></header>
+<link rel="stylesheet" th:href="@{/Administrador/style3.css}" />
+  <link rel="stylesheet" th:href="@{/css/personal/home.css}" />
+	<section id="clients" class="clients section-bg">
+			<div class="container">
+
+				<div class="row" data-aos="zoom-in">
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-1.png" class="img-fluid"
+							alt="">
+					</div>
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-2.png" class="img-fluid"
+							alt="">
+					</div>
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-3.png" class="img-fluid"
+							alt="">
+					</div>
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-4.png" class="img-fluid"
+							alt="">
+					</div>
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-5.png" class="img-fluid"
+							alt="">
+					</div>
+
+					<div
+						class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+						<img src="assets/img/clients/client-6.png" class="img-fluid"
+							alt="">
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+<section id="services" class="services section-bg">
+    <div class="container" data-aos="fade-up">
+        <div class="uni">
+            <div class="section-title">
+                <h2>Descuentos</h2>
+                <small>Aquí se pueden validar los descuentos a aquellos que seleccionaron descuentos por ventanilla</small>
+            </div>
+        </div>
+    </div>
+</section>
+ <div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
+    <div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
+    <div class="alert alert-warning" th:if="${warning != null}" th:text="${warning}"></div>
+    <div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
+<br>
+
+<center><p id="fecha-actual"></p></center>
+
+<div class="container py-4">
+    <div class="card bg-light">
+        <div class="card-body">
+            <!-- Agrega la clase 'table-responsive' para hacer la tabla responsive -->
+          	<div id="miTablaContainer" class="table-responsive">
+						<table class="table table-striped table-bordered" id="miTabla">
+                <thead class="thead-inverse">
+                    <tr>
+                        <!-- Agrega las clases 'text-center' para centrar el texto en las celdas -->
+                        <th class="bg-dark text-white text-center">CLIENTE</th>
+                        <th class="bg-dark text-white text-center">ASIENTO</th>
+                        <th class="bg-dark text-white text-center">RUTA</th>
+                        <th class="bg-dark text-white text-center">UNIDAD</th>
+                        <th class="bg-dark text-white text-center">HORA</th>
+                        <th class="bg-dark text-white text-center">ESTADO</th>
+                        <th class="bg-dark text-white text-center">TOTAL A CANCELAR</th>
+                       
+                        <th class="bg-dark text-white text-center">DESCUENTO VÁLIDO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="boleto: ${boletos}">
+                        <td th:text="${boleto.usuario.nombre}+ '  ' + ${boleto.usuario.apellido}"
+                            class="text-center"></td>
+                        <td th:text="${boleto.asiento.fila}+ ' - ' + ${boleto.asiento.columna}"
+                            class="text-center"></td>
+                        <td th:text="${boleto.cronograma.ruta.rutaOrigen}+ ' - ' + ${boleto.cronograma.ruta.rutaDestino}"
+                            class="text-center"></td>
+                        <td th:text="${boleto.cronograma.unidad.numero}+ ' - ' + ${boleto.cronograma.unidad.cooperativa.nombre}"
+                            class="text-center"></td>
+                        <td th:text="${boleto.cronograma.horaSalida}" class="text-center"></td>
+                        <td th:text="${boleto.estado}" class="text-center"></td>
+                        <td th:text="${boleto.totalPagoFormateado}" class="text-center"></td>
+                       
+                        <td class="text-center">
+							<a class="btn btn-success"
+                                th:href="@{/aplicar/}+ ${boleto.id}">Válido</a>
+                            <a class="btn btn-danger"
+                                th:href="@{/aplicar/no/}+ ${boleto.id}">No Válido</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script th:src="@{/js/personal/home2.js}"></script>
+
+<!-- Agrega el script de Bootstrap (asegúrate de incluirlo) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<footer th:replace="layout/layout3 :: footer"></footer>
+
+</body>
+</html>
